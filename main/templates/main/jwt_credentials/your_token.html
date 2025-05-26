@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokens JWT</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .token-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border: none;
+        }
+        .token-header {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+        }
+        .token-body {
+            padding: 1.5rem;
+        }
+        .token-input {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            min-width: 100px;
+        }
+        .token-expiry {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bold mb-3">Tokens de Autenticación</h1>
+                    <p class="lead">Estos tokens te permitirán acceder a los servicios protegidos</p>
+                </div>
+
+                <!-- Access Token Card -->
+                <div class="card token-card">
+                    <div class="card-header token-header bg-primary text-white">
+                        <i class="fas fa-key me-2"></i> Access Token
+                    </div>
+                    <div class="card-body token-body">
+                        <div class="input-group mb-2">
+                            <input type="text" 
+                                   class="form-control token-input" 
+                                   id="accessToken" 
+                                   value="{{ token_data.access }}" 
+                                   readonly>
+                            <button class="btn btn-primary copy-btn" 
+                                    onclick="copyToClipboard('accessToken')">
+                                <i class="fas fa-copy me-2"></i>Copiar
+                            </button>
+                        </div>
+                        <div class="token-expiry">
+                            <i class="fas fa-clock me-1"></i> Expira en: 365 minutos (usar para autenticación)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refresh Token Card -->
+                <div class="card token-card">
+                    <div class="card-header token-header bg-secondary text-white">
+                        <i class="fas fa-sync-alt me-2"></i> Refresh Token
+                    </div>
+                    <div class="card-body token-body">
+                        <div class="input-group mb-2">
+                            <input type="text" 
+                                   class="form-control token-input" 
+                                   id="refreshToken" 
+                                   value="{{ token_data.refresh }}" 
+                                   readonly>
+                            <button class="btn btn-secondary copy-btn" 
+                                    onclick="copyToClipboard('refreshToken')">
+                                <i class="fas fa-copy me-2"></i>Copiar
+                            </button>
+                        </div>
+                        <div class="token-expiry">
+                            <i class="fas fa-clock me-1"></i> Expira en: 400 días (usar para renovar access token)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Instrucciones:</strong> Usa el Access Token para autenticarte en las APIs. 
+                    Cuando expire, usa el Refresh Token para obtener un nuevo Access Token.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer mt-5">
+            <p>Sistema de Autenticación &copy; 2023</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para copiar al portapapeles -->
+    <script>
+    function copyToClipboard(elementId) {
+        const element = document.getElementById(elementId);
+        element.select();
+        element.setSelectionRange(0, 99999); // Para dispositivos móviles
+        document.execCommand('copy');
+        
+        // Mostrar notificación
+        const originalText = event.target.innerHTML;
+        event.target.innerHTML = '<i class="fas fa-check me-2"></i>Copiado!';
+        event.target.classList.add('btn-success');
+        event.target.classList.remove('btn-primary', 'btn-secondary');
+        
+        setTimeout(() => {
+            event.target.innerHTML = originalText;
+            if (elementId === 'accessToken') {
+                event.target.classList.remove('btn-success');
+                event.target.classList.add('btn-primary');
+            } else {
+                event.target.classList.remove('btn-success');
+                event.target.classList.add('btn-secondary');
+            }
+        }, 2000);
+    }
+    </script>
+</body>
+</html>
