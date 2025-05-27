@@ -36,9 +36,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&63m+4k!i8k=3w1q&n9whwlf^psj3nj!=)k0!n@u+*0$qzr=+k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['api-ruc.aracodeperu.com']
 
 
 # Application definition
@@ -91,8 +91,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'api_ruc',
-        'USER': 'aracode_remoto',
-        'PASSWORD': 's3r4t02023',
+        'USER': 'root',
+        'PASSWORD': '12345AracodePeru',
         'HOST': 'aracodeperu.com',  # O la dirección de tu servidor MySQL
         'PORT': '3306',       # Puerto de MySQL
     }
