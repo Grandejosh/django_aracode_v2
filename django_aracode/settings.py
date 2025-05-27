@@ -15,7 +15,9 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+# Ruta relativa al directorio del script (openai_client.py)
+env_path = Path(__file__).resolve().parent.parent / ".env"  # Ajusta según tu estructura
+load_dotenv(dotenv_path=env_path)
 
 
 # Configuración de OpenAI
@@ -91,10 +93,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv("DB_DATABASE"),
-        'USER': os.getenv('DB_USERNAME'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),  # O la dirección de tu servidor MySQL
-        'PORT': os.getenv('DB_PORT'),       # Puerto de MySQL
+        'USER': os.getenv("DB_USERNAME"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),  # O la dirección de tu servidor MySQL
+        'PORT': os.getenv("DB_HOST"),       # Puerto de MySQL
     }
 }
 

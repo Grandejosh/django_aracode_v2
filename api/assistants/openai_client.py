@@ -9,7 +9,7 @@ load_dotenv(dotenv_path=env_path)
 
 # Configuración inicial
 API_KEY = os.getenv("API_KEY_IA")
-ASSISTANT_ID = os.getenv('ASSISTANT_ID_IA')
+ASSISTANT_ID = os.getenv("ASSISTANT_ID_IA")
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"txt", "pdf", "docx", "doc", "xls", "xlsx"}
 
